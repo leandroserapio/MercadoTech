@@ -35,9 +35,11 @@
 
     */
 
-    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/" );
-
+    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=productos" );
     $productos = json_decode($api);
+
+    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=exclusivos" );
+    $exclusivos = json_decode($api);
 
     //print_r($productos);
 
@@ -106,34 +108,38 @@
 
     <?php
 
-        $apiExclusivos = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/exclusivos.php" );
 
-        $exclusivos = json_decode($apiExclusivos);
-
-        for($i = 0; $i < count($exclusivos); $i++){      
+       /* for($i = 0; $i < count($exclusivos); $i++){      
             //operador ternario
             //$varialble = (condicion) ? VALOR_VERDADERO : VALOR_FALSO;
             $class = (($i+1) % 3 == 0  ) ? "grid-top-chain" : null;
+        */
+
+        foreach($exclusivos as $exclusivo){
+
+        
+
         ?>
 
 
         <!-- Producto #1 -->
         <div class="col-sm-4 col-md-4 <?php echo $class ?>">
-            <a href="?p=producto&id=<?php echo $exclusivos[$i]->idProducto?>"><img class="img-responsive chain" src="<?php echo $exclusivos[$i]->Imagen ?>" alt=" " /></a>
+            <a href="?p=producto&id=<?php echo $exclusivo->idProducto?>"><img class="img-responsive chain" src="<?php echo $exclusivo->Imagen ?>" alt=" " /></a>
             <span class="star"></span>
             <div class="grid-chain-bottom">
-                <h6><a href="?p=producto&id=<?php echo $exclusivos[$i]->idProducto?>"><?php echo $exclusivos[$i]->Nombre ?></a></h6>
+                <h6><a href="?p=producto&id=<?php echo $exclusivo->idProducto?>"><?php echo $exclusivo->Nombre ?></a></h6>
                     <div class="star-price">
                         <div class="dolor-grid"> 
-                            <span class="actual">$ <?php echo $exclusivos[$i]->Precio ?></span>
+                            <span class="actual">$ <?php echo $exclusivo->Precio ?></span>
                         </div>
-                        <a class="now-get get-cart" href="?p=producto&id=<?php echo $exclusivos[$i]->idProducto?>">VER MÁS</a> 
+                        <a class="now-get get-cart" href="?p=producto&id=<?php echo $exclusivo->idProducto?>">VER MÁS</a> 
                         <div class="clearfix"></div>
+                       
                     </div>
             </div>
         </div>
 
-        <?php } ?>
+         <?php } ?>
 
     </div>
             </section>  

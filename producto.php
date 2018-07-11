@@ -6,30 +6,16 @@
     $id = $_GET["id"];  
 
 
-
-    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/" );
-
+    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=productos" );
     $productos = json_decode($api);
 
-    
-    $apiExclusivos = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/exclusivos.php" );
-
-    $exclusivos = json_decode($apiExclusivos);
-
-
-
+    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=exclusivos" );
+    $exclusivos = json_decode($api);
 
 
     $item = array_search($id, array_column($productos, "idProducto") );
  
     $elegido = $productos[$item];
-
-    
-    
-    $itemOfertas = array_search($id, array_column($exclusivos, "idProducto") );
- 
-    $elegidoOferta = $exclusivos[$itemOfertas];
-
 
 
     /*
@@ -61,22 +47,22 @@
         <div class="grid images_3_of_2">
             <ul id="etalage">
                 <li>
-                    <img class="etalage_thumb_image" src="<?php echo $elegidoOferta->Imagen ?>" class="img-responsive" />
+                    <img class="etalage_thumb_image" src="<?php echo $elegido->Imagen ?>" class="img-responsive" />
                 </li>
             </ul>
             <div class="clearfix"></div>		
         </div>
         
         <div class="desc1 span_3_of_2">
-            <h4><?php echo $elegidoOferta->Nombre ?></h4>
+            <h4><?php echo $elegido->Nombre ?></h4>
            
             <div class="cart-b">
-                <div class="left-n ">$ <?php echo $elegidoOferta->Precio ?></div>
+                <div class="left-n ">$ <?php echo $elegido->Precio ?></div>
                 <a class="now-get get-cart-in" href="#">COMPRAR</a> 
                 <ldiv class="clearfix"></div>
             </div>
         
-            <h6><?php echo $elegidoOferta->Stock ?> unid. en stock</h6>
+            <h6><?php echo $elegido->Stock ?> unid. en stock</h6>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             
 
