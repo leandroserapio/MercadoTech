@@ -3,19 +3,10 @@
     if( !isset($_GET["id"]) || !filter_Var($_GET["id"], FILTER_VALIDATE_INT))
         header("location: index.php");
      
+    require "db.php";
     $id = $_GET["id"];  
-
-
-    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=productos" );
-    $productos = json_decode($api);
-
-    $api = file_get_contents( "http://localhost/nivel2/MercadoTECH/api/?d=exclusivos" );
-    $exclusivos = json_decode($api);
-
-
-    $item = array_search($id, array_column($productos, "idProducto") );
  
-    $elegido = $productos[$item];
+    $elegido =  Mostrar( $id );
 
 
     /*
@@ -47,17 +38,17 @@
         <div class="grid images_3_of_2">
             <ul id="etalage">
                 <li>
-                    <img class="etalage_thumb_image" src="<?php echo $elegido->Imagen ?>" class="img-responsive" />
+                    <img class="etalage_thumb_image" src="<?php echo $elegido["Imagen"] ?>" class="img-responsive" />
                 </li>
             </ul>
             <div class="clearfix"></div>		
         </div>
         
         <div class="desc1 span_3_of_2">
-            <h4><?php echo $elegido->Nombre ?></h4>
+            <h4><?php echo $elegido["Nombre"] ?></h4>
            
             <div class="cart-b">
-                <div class="left-n ">$ <?php echo $elegido->Precio ?></div>
+                <div class="left-n ">$ <?php echo $elegido["Precio"] ?></div>
                 <a class="now-get get-cart-in" href="#">COMPRAR</a> 
                 <ldiv class="clearfix"></div>
             </div>
