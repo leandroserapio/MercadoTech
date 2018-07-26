@@ -27,9 +27,9 @@ function Insertar($producto){
 
 
 		if( $insertar->execute() ){
-			echo "Producto registrado correctamente";
+			return true;
 		} else {
-			echo "Ocurrio un error :(";
+			return false;
 		}
 }
 
@@ -51,9 +51,9 @@ function Actualizar($id, $producto){
 		
 		
 		if ( $actualizar->execute() ) {
-			echo "Producto actualizado correctamente!";
+			return true;
 		} else {
-			echo "Ocurrio un error :(";
+			return false;
 		}
 	
 }
@@ -67,13 +67,13 @@ function Borrar(){
 	$borrar->bindParam(":id", $id, PDO::PARAM_INT);
 
 	if ( $borrar->execute() ) {
-		echo "Producto borrado correctamente!";
+		return true;
 	} else {
-		echo "Ocurrio un error :(";
+		return false;
 	}
 }
 
-function Mostrar($id = 0){
+/*function Mostrar($id = 0){
 	$conexion = Conexion();
 	
 	if ( $id == 0 ){
@@ -81,19 +81,47 @@ function Mostrar($id = 0){
 		$mostrar = $conexion->query("SELECT idProducto, Nombre, Precio, Detalle, Stock, Imagen FROM productos LIMIT 0,12");
 		return $mostrar->fetchAll(PDO::FETCH_ASSOC);
 		
-	} else {	
+	
+	
+	
+	
+	} elseif
+	 {	
 		$mostrar = $conexion->prepare("SELECT idProducto, Nombre, Precio, Detalle, Stock, Imagen FROM productos WHERE idProducto = id");
 		$mostrar->bindParam(":id", $id, PDO::PARAM_INT);		
 		
 		if($mostrar->execute() && $mostrar->rowCount() > 0 ) {
 		return $mostrar->fetch(PDO::FETCH_ASSOC);
-		} else{ 
-		return "prodcuto no encontrado";
-		}					
-	}
+		}
 	
-} 	
+	} else {
+		return "prodcuto no encontrado";
+	} 
 
+} */
+
+
+function Mostrar($id = 0){
+	$conexion = Conexion();
+
+	if( !$id ){
+		$mostrar = $conexion->query("SELECT idProducto, Nombre, Precio, Detalle, Stock, Imagen FROM productos LIMIT 0,12");
+
+		return $mostrar->fetchAll(PDO::FETCH_ASSOC);
+	} else {
+		$mostrar = $conexion->prepare("SELECT idProducto, Nombre, Precio, Detalle, Stock, Imagen FROM productos WHERE idProducto = :id");
+		$mostrar->bindParam(":id", $id, PDO::PARAM_INT);
+
+		if( $mostrar->execute() && $mostrar->rowCount() > 0 ):
+			return $mostrar->fetch(PDO::FETCH_ASSOC);
+		else:
+			return "Producto no encontrado";
+		endif;
+	}
+
+	 
+}
+/*
 //////// TESTEO DE LA LIBRERIA ////////
 $datos = array(
 	"Nombre" => "sansun khe",
@@ -111,6 +139,8 @@ $datos = array(
 
 
 print_r(Mostrar(55));
+
+*/
 
 
 ?>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <base href="http://localhost/nivel2/MercadoTECH/">
         <meta charset="utf-8">
         <title>MercadoTECH | Tu E-Shop en PHP</title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -37,6 +38,9 @@
                             <li><a href="./?p=registro">REGISTRARME</a></li>
                             &nbsp;|&nbsp;
                             <li><a href="./?p=contacto">CONTACTO</a></li>
+                            &nbsp;|&nbsp;
+                            <li><a href="admin/">MIS PRODUCTOS</a></li>
+                            
                         </ul>
                         <!--div class="cart"><a href="producto.html"><span></span>CART</a></div-->
                         <div class="clearfix"></div>
